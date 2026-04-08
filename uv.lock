@@ -11,7 +11,6 @@ name = "agent-engineering"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
-    { name = "dashscope" },
     { name = "deepagents" },
     { name = "langchain" },
     { name = "langchain-community" },
@@ -22,7 +21,6 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "dashscope", specifier = ">=1.25.15" },
     { name = "deepagents", specifier = ">=0.4.12" },
     { name = "langchain", specifier = ">=1.2.13" },
     { name = "langchain-community", specifier = ">=0.4.1" },
@@ -480,21 +478,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/44/46/466269e833f1c4718d6cd496ffe20c56c9c8d013486ff66b4f69c302a68d/cryptography-46.0.6-cp38-abi3-musllinux_1_2_x86_64.whl", hash = "sha256:6617f67b1606dfd9fe4dbfa354a9508d4a6d37afe30306fe6c101b7ce3274b72", size = 4659255, upload-time = "2026-03-25T23:34:33.679Z" },
     { url = "https://files.pythonhosted.org/packages/0a/09/ddc5f630cc32287d2c953fc5d32705e63ec73e37308e5120955316f53827/cryptography-46.0.6-cp38-abi3-win32.whl", hash = "sha256:7f6690b6c55e9c5332c0b59b9c8a3fb232ebf059094c17f9019a51e9827df91c", size = 3010660, upload-time = "2026-03-25T23:34:35.418Z" },
     { url = "https://files.pythonhosted.org/packages/1b/82/ca4893968aeb2709aacfb57a30dec6fa2ab25b10fa9f064b8882ce33f599/cryptography-46.0.6-cp38-abi3-win_amd64.whl", hash = "sha256:79e865c642cfc5c0b3eb12af83c35c5aeff4fa5c672dc28c43721c2c9fdd2f0f", size = 3471160, upload-time = "2026-03-25T23:34:37.191Z" },
-]
-
-[[package]]
-name = "dashscope"
-version = "1.25.15"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "aiohttp" },
-    { name = "certifi" },
-    { name = "cryptography" },
-    { name = "requests" },
-    { name = "websocket-client" },
-]
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/54/39/a5a517d260e9f481e6d1e41ad7fcb021ad52327483ee2847fbb0f6350984/dashscope-1.25.15-py3-none-any.whl", hash = "sha256:0a1d2e43d8ad5447fccbbf9e29f38d7f2241c6c83c4e2c85f165a524ffb9121e", size = 1343122, upload-time = "2026-03-24T07:20:19.106Z" },
 ]
 
 [[package]]
