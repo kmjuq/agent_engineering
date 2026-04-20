@@ -5,7 +5,6 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "dashscope>=1.25.16",
     "deepagents>=0.5.1",
     "langchain>=1.2.15",
     "langchain-community>=0.4.1",
