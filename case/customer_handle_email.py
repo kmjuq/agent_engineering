@@ -56,8 +56,7 @@ def read_email(state: EmailAgentState) -> dict:
     }
 
 
-def classify(state: EmailAgentState) -> Command[
-    Literal["search_doc", "human_review", "bug_report", "draft_resp_content"]]:
+def classify(state: EmailAgentState) -> dict[str, str]:
     """ 使用大模型给邮件内容分类意图和紧急程度，然后路由到 """
     classify_llm = llm.with_structured_output(EmailClassification)
 
@@ -71,21 +70,21 @@ def classify(state: EmailAgentState) -> Command[
 
     classification = classify_llm.invoke(classify_prompt)
 
-    if classification["intent"] == "billing" or classification["urgency"] == "critical":
-        goto = "human_review"
-    elif classification["intent"] in ["question", "feature"]:
-        goto = "search_doc"
-    elif classification["intent"] == "bug":
-        goto = "bug_report"
-    else:
-        goto = "draft_resp_content"
+    return {"classification": classification}
 
-    return Command(
-        update={
-            "classification": classification,
-        },
-        goto=goto,
-    )
+def route_after_classify(state:EmailAgentState) -> str:
+    classification = state.get("classification", {})
+    intent = classification.get("intent")
+    urgency = classification.get("urgency")
+
+    if intent == "billing" or urgency == "critical":
+        return "human_review"
+    elif intent in ("question", "feature"):
+        return "search_doc"
+    elif intent == "bug":
+        return "bug_report"
+    else:
+        return "draft_resp_content"
 
 
 def search_doc(state: EmailAgentState) -> Command[Literal["draft_resp_content"]]:
@@ -219,6 +218,12 @@ if __name__ == "__main__":
     # Add only the essential edges
     workflow.add_edge(START, "read_email")
     workflow.add_edge("read_email", "classify")
+    workflow.add_conditional_edges("classify", route_after_classify,[
+        "human_review",
+        "search_doc",
+        "bug_report",
+        "draft_resp_content",
+    ])
     workflow.add_edge("send_reply", END)
 
     # Compile with checkpointer for persistence, in case run graph with Local_Server --> Please compile without checkpointer
