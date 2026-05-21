@@ -18,10 +18,10 @@
 """
 from typing import TypedDict, Literal
 
-from langchain_core.messages import HumanMessage, BaseMessage
+from langchain_core.messages import HumanMessage
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.constants import END, START
-from langgraph.func import task, entrypoint
+from langgraph.errors import GraphInterrupt
 from langgraph.graph import StateGraph
 from langgraph.types import Command, interrupt, RetryPolicy
 
@@ -225,6 +225,25 @@ if __name__ == "__main__":
     memory = MemorySaver()
     app = workflow.compile(checkpointer=memory)
 
+    config = {"configurable": {"thread_id": "1"}}
+    initial_state = {"email_content": "怎么重置密码？"}  # 你的邮件内容
+
+    # 第一次调用，遇到 human_review 中断
+    try:
+        result = app.invoke(initial_state, config)
+    except GraphInterrupt:
+        # 这里可以获取中断信息，例如 state.values 等
+        pass
+
+    # 提供人工决策并恢复
+    from langgraph.types import Command
+
+    resume_value = {
+        "approved": True,  # 是否批准自动回复
+        "edited_response": "已为你处理重复扣费..."  # 如果编辑过，就传新内容
+    }
+
+    app.invoke(Command(resume=resume_value), config)  # 继续执行到 send_reply → END
 
 
 
