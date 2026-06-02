@@ -19,3 +19,6 @@ def auto_load_env(func):
         return func(*args, **kwargs)
 
     return wrapper
+
+if __name__ == "__main__":
+    print(Path(__file__).resolve().parent)
