@@ -16,9 +16,9 @@ def base_model():
 
 @auto_load_env
 def basic_model():
-    return model_template("qwen3.5-27b")
+    return model_template("deepseek-v4-flash")
 
 
 @auto_load_env
 def advanced_model():
-    return model_template("qwen3.6-plus")
+    return model_template("deepseek-v4-pro")

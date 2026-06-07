@@ -13,6 +13,7 @@ _ENV_PATH = _PROJECT_ROOT / ".env"
 
 
 def auto_load_env(func):
+
     @wraps(func)
     def wrapper(*args, **kwargs):
         load_dotenv(dotenv_path=_ENV_PATH)  # 使用显式路径，避免 os.getcwd() 失败
