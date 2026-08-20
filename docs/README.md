@@ -8,6 +8,8 @@
 | --- | --- | --- |
 | [rag/](./rag/) | 检索增强生成（RAG） | 基础、进阶、模块化、智能体化、前沿趋势（GraphRAG / 多模态 / 评测等） |
 | [agents/](./agents/) | AI Agent / 多智能体协作 | Plan 模式（Planner+subagent）、CodeBuddy 风格 Agent Loop（局部控制合同 + 双层架构） |
+| [dependency-management/](./dependency-management/) | 依赖管理 | macOS Intel/ARM 双平台依赖兼容性处理（torch 问题、RAG 包清理、faiss 版本收敛） |
+| [llm/](./llm/) | 大模型能力 / API 使用 | DeepSeek 联网搜索（Web Search）能力与调用路径、实测结论 |
 
 ## 约定
 
